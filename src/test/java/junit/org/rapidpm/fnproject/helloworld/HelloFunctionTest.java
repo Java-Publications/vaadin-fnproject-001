@@ -8,16 +8,17 @@ import static org.junit.Assert.*;
 
 public class HelloFunctionTest {
 
-    @Rule
-    public final FnTestingRule testing = FnTestingRule.createDefault();
+  @Rule
+  public final FnTestingRule testing = FnTestingRule.createDefault();
 
-    @Test
-    public void shouldReturnGreeting() {
-        testing.givenEvent().enqueue();
-        testing.thenRun(HelloFunction.class, "handleRequest");
+  @Test
+  public void shouldReturnGreeting() {
+    testing.givenEvent().enqueue();
+    testing.thenRun(HelloFunction.class, "handleRequest");
 
-        FnResult result = testing.getOnlyResult();
-        assertEquals("Hello, world!", result.getBodyAsString());
-    }
+    FnResult result = testing.getOnlyResult();
+    assertEquals("Hello, world!" + System.getProperty("line.separator"),
+                 result.getBodyAsString());
+  }
 
 }
